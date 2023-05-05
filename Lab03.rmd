@@ -1,6 +1,6 @@
 ---
 title: "Lab 03"
-author: ""
+author: "Hanin Alzaher"
 date: ""
 editor_options: 
   chunk_output_type: console
@@ -27,42 +27,57 @@ fl_votes %>%
 # Exercise 1
 
 ```{r add-winner}
-
+fl_votes <- fl_votes %>%
+  mutate(winner20 = if_else(rep20 > dem20, 'Donald Trump', 'Joe Biden'))
 ```
 
 
 # Exercise 2
 
 ```{r fl-plot-1}
-
+ggplot(fl_votes) + geom_sf(aes(fill=winner20)) + 
+  scale_fill_manual(values = c("#DE0100" , "#0015BC")) +
+  labs(title = "Election winner 2020", fill = "winner") +
+  theme_bw()
 
 ```
 
 # Exercise #3
 
 ```{r fl-props}
-
+fl_votes <- fl_votes %>%
+  mutate(prop_rep16= rep16/(rep16+dem16), prop_rep20= rep20/(rep20+dem20))
 ```
 
 # Exercise 4
 
 ```{r fl-plot-2}
-
+ggplot(fl_votes) + geom_sf(aes(fill = prop_rep20)) +
+  scale_fill_gradient(low = "#0015BC", high = "#DE0100" ) +
+  labs(title = "Election 2020 Results", fill = "Republican share of votes") +
+  theme_bw()
 ```
 
 # Exercise 5
 
 ```{r fl-change}
-
+fl_votes <- fl_votes %>%
+  mutate(diff_rep = prop_rep20 - prop_rep16)
 ```
 
 # Exercise 6
 
 ```{r fl-plot-3}
-
+ggplot(fl_votes) + geom_sf(aes(fill = diff_rep)) +
+  scale_fill_gradient2(low = "#0015BC" , high = "#DE0100") +
+  labs(title = "Election 2016 and 2020 results", fill = "Change in Republican share") +
+  theme_bw()
 ```
 
 # Exercise 7
 
+What do the visualizations you developed tell you about the 2016 and 2020 Presidential election in Florida? What are limitations of these visualizations?
 
+The visualizations show that Donald Trump won the with the majority of votes in Florida state. The limitation we faced is the plot in exercise 2 was not clear.
+  
 
